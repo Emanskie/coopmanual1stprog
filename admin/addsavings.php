@@ -1,9 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION["user"])) {
-   header("Location: login.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,3 +269,88 @@ if (!isset($_SESSION["user"])) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
+
+
+        <!-- Add Item Form -->
+        <form  method="POST" enctype="multipart/form-data" >
+            <h2>Fill Data</h2>
+            <p class="hint-text">Fill below form.</p>
+            
+            <div class="form-group">
+            <div class="row">
+            <div class="col"><input type="text" class="form-control" name="name" placeholder="Name of the Service" required="true"></div>
+            </div>        	
+            </div>
+            
+                    
+            <div class="form-group">
+            <input type="description" class="form-control" name="description" placeholder="Description" required="true">
+            </div>
+                       
+            <div class="form-group">
+            <input type="file" class="form-control" name="image"  required="true">
+            <span style="color:red; font-size:12px;">Only jpg / jpeg/ png /gif format allowed.</span>
+            </div>      
+                
+            <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block" name="submit">Submit</button>
+            </div>
+            </form>
+
+        <!-- For simplicity, let's just include a back button -->
+        <a href="savings.php" class="btn btn-secondary">Back</a>
+
+        <?php 
+            //Databse Connection file
+            $conn = new mysqli("localhost", "root", "", "coop");
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                if (isset($_POST['submit'])) {
+                    // Getting the post values
+                    $name = $_POST['name'];
+                    $description = $_POST['description'];
+
+                    // Getting image details
+                    $image = $_FILES["image"]["name"];
+
+                    // Get the image extension
+                    $extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+
+                    // Allowed extensions
+                    $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+
+                    // Validation for allowed extensions
+                    if (!in_array($extension, $allowed_extensions)) {
+                        echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
+                    } else {
+                        // Rename the image file
+                        $imgnewfile = md5($image) . time() . "." . $extension;
+
+                        // Code for moving the image into the directory
+                        move_uploaded_file($_FILES["image"]["tmp_name"], "uploads/" . $imgnewfile);
+
+                        // Query for data insertion
+                        $query = mysqli_query($conn, "INSERT INTO savings (name, description, image) VALUES ('$name', '$description', '$imgnewfile')");
+
+                        if ($query) {
+                            echo "<script>alert('You have successfully inserted the data');</script>";
+                            echo "<script type='text/javascript'> document.location ='savings.php'; </script>";
+                        } else {
+                            echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                        }
+                    }
+                }
+                ?>
+
+                 
+
+
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

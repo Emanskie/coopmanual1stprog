@@ -1,9 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION["user"])) {
-   header("Location: login.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,3 +269,110 @@ if (!isset($_SESSION["user"])) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
+
+
+        <!-- Updated Edit Form -->
+        <form action="" method="post" enctype="multipart/form-data">
+            <h2>Edit Item</h2>
+            <?php
+            // Get the item details based on the provided ID
+            $editId = $_GET['id'];
+            $itemDetails = getItemDetails($editId);
+            ?>
+            <input type="hidden" name="edit_id" value="<?php echo $itemDetails['id']; ?>">
+            <div class="mb-3">
+                <label for="edit_name" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="edit_name" value="<?php echo $itemDetails['name']; ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="edit_description" class="form-label">Description:</label>
+                <textarea class="form-control" name="edit_description" rows="3" required><?php echo $itemDetails['description']; ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="edit_image" class="form-label">New Image:</label>
+                <input type="file" class="form-control" name="edit_image" accept="image/*">
+                <span style="color:red; font-size:12px;">Only jpg / jpeg / png / gif format allowed. Leave empty to keep the existing image.</span>
+            </div>
+            <button type="submit" class="btn btn-primary" name="edit_submit">Update Item</button>
+        </form>
+        <a href="savings.php" class="btn btn-secondary">Back</a>
+
+                        <?php
+                // Function to get details of a specific item for editing
+                function getItemDetails($itemId)
+                {
+                    $conn = new mysqli("localhost", "root", "", "coop");
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $itemId = $conn->real_escape_string($itemId);
+
+                    $result = $conn->query("SELECT id, name, description, image FROM savings WHERE id = $itemId");
+
+                    $conn->close();
+
+                    return $result->fetch_assoc();
+                }
+
+                // Check if the form is submitted for editing
+                if (isset($_POST['edit_submit'])) {
+                    $editId = $_POST['edit_id'];
+                    $editName = $_POST['edit_name'];
+                    $editDescription = $_POST['edit_description'];
+
+                    // Get the existing image details
+                    $existingImage = getItemDetails($editId)['image'];
+
+                    // Check if a new image is uploaded
+                    if (!empty($_FILES["edit_image"]["name"])) {
+                        $editImage = $_FILES["edit_image"]["name"];
+                        $extension = strtolower(pathinfo($editImage, PATHINFO_EXTENSION));
+                        $allowedExtensions = array("jpg", "jpeg", "png", "gif");
+
+                        // Validation for allowed extensions
+                        if (!in_array($extension, $allowedExtensions)) {
+                            echo "<script>alert('Invalid format. Only jpg / jpeg / png / gif format allowed');</script>";
+                            // You might want to redirect or handle this error appropriately
+                        } else {
+                            // Rename the new image file
+                            $editImage = md5($editImage) . time() . "." . $extension;
+
+                            // Code for moving the new image into the directory
+                            move_uploaded_file($_FILES["edit_image"]["tmp_name"], "uploads/" . $editImage);
+
+                            // Remove the existing image file
+                            if (file_exists("uploads/" . $existingImage)) {
+                                unlink("uploads/" . $existingImage);
+                            }
+                        }
+                    } else {
+                        // No new image, keep the existing one
+                        $editImage = $existingImage;
+                    }
+
+                    // Update the item in the database
+                    $conn = new mysqli("localhost", "root", "", "coop");
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $editId = $conn->real_escape_string($editId);
+                    $editName = $conn->real_escape_string($editName);
+                    $editDescription = $conn->real_escape_string($editDescription);
+
+                    // Update query
+                    $query = "UPDATE savings SET name = '$editName', description = '$editDescription', image = '$editImage' WHERE id = $editId";
+
+                    if ($conn->query($query)) {
+                        echo "<script>alert('Item updated successfully');</script>";
+                        echo "<script type='text/javascript'> document.location ='savings.php'; </script>";
+                    } else {
+                        echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                    }
+
+                    $conn->close();
+                }
+                ?>

@@ -11,7 +11,7 @@ if (!isset($_SESSION["user"])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Admin Panel</title>
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -267,11 +267,105 @@ if (!isset($_SESSION["user"])) {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Savings</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Savings</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
+
+    <div class="container mt-4">
+        <h2>CRUD Table</h2>
+
+        <!-- Add Button -->
+        <a href="addsavings.php" class="btn btn-success mb-3">Add</a>
+
+        <!-- Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    // Assuming you have a database connection here
+                    $conn = new mysqli("localhost", "root", "", "coop");
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    // Fetch data from the database
+                    $result = $conn->query("SELECT id, name, description, image FROM savings");
+
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>{$row['name']}</td>";
+                        echo "<td>{$row['description']}</td>";
+                        echo "<td><img src='uploads/{$row['image']}' alt='Image' style='max-width: 100px;'></td>";
+                        echo "<td>";
+                        echo "<a href='editsavings.php?id={$row['id']}' class='btn btn-warning edit-btn'>Edit</a>";
+                        echo "<button class='btn btn-danger delete-btn' onclick='confirmDelete({$row['id']})'>Delete</button>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+
+                    $conn->close();
+                ?>
+            
+                <?php
+                // Function to delete an item from the database
+                function deleteItem($itemId) {
+                    $conn = new mysqli("localhost", "root", "", "coop");
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $itemId = $conn->real_escape_string($itemId);
+
+                    // Delete query
+                    $query = "DELETE FROM savings WHERE id = $itemId";
+
+                    if ($conn->query($query)) {
+                        // Deletion successful
+                        echo "<script>alert('Item deleted successfully');</script>";
+                    } else {
+                        // Deletion failed
+                        echo "<script>alert('Failed to delete item. Please try again');</script>";
+                    }
+
+                    $conn->close();
+                }
+
+                // Check if the delete parameter is present in the URL
+                if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+                    // Call the deleteItem function with the provided item ID
+                    deleteItem($_GET['delete']);
+                }
+                ?>
+
+            </tbody>
+        </table>
+        </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+            function confirmDelete(itemId) {
+            if (confirm("Are you sure you want to delete this item?")) {
+                // Redirect to the same page with the 'delete' parameter
+                window.location.href = "savings.php?delete=" + itemId;
+            }
+        }
+    </script>
+
+</body>
+</html>
