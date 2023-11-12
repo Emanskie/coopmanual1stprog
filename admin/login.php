@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["user"])) {
-   header("Location: index.php");
+   header("Location: admin.php");
 }
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ if (isset($_SESSION["user"])) {
                 if (password_verify($password, $user["password"])) {
                     session_start();
                     $_SESSION["user"] = "yes";
-                    header("Location: index.php");
+                    header("Location: admin.php");
                     die();
                 }else{
                     echo "<div class='alert alert-danger'>Password does not match</div>";
@@ -55,7 +55,7 @@ if (isset($_SESSION["user"])) {
         <input type="submit" value="Login" name="login" class="btn btn-primary">
         </div>
       </form>
-     <div><p>Not registered yet <a href="registration.php">Register Here</a></p></div>
+     <div><p>Proceed to Client Dashboard <a href="/CoopManual/index.php"> Click Here!</a></p></div>
     </div>
 </body>
 </html>
