@@ -11,7 +11,7 @@ if (!isset($_SESSION["user"])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>Admin Panel</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -96,8 +96,7 @@ if (!isset($_SESSION["user"])) {
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
+          </li><!-- End Profile Nav -->
       </ul>
     </nav><!-- End Icons Navigation -->
 
