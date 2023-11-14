@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2023 at 03:15 PM
+-- Generation Time: Nov 14, 2023 at 08:49 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `coop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `savings`
+--
+
+CREATE TABLE `savings` (
+  `id` int(191) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `description` varchar(191) NOT NULL,
+  `image` varchar(191) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
