@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2023 at 08:49 AM
+-- Generation Time: Nov 19, 2023 at 12:19 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -24,14 +24,57 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `alliedbus`
+--
+
+CREATE TABLE `alliedbus` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loans`
+--
+
+CREATE TABLE `loans` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `memberbfs`
+--
+
+CREATE TABLE `memberbfs` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `savings`
 --
 
 CREATE TABLE `savings` (
-  `id` int(191) NOT NULL,
-  `name` varchar(191) NOT NULL,
-  `description` varchar(191) NOT NULL,
-  `image` varchar(191) NOT NULL
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -57,6 +100,62 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`) VALUES
 (0, 'adamnskie', 'adam@gmail.com', '$2y$10$jjIVJzPk6Zvz8ROjN3WfWO6FzbnHDMNVVQ3hKHmEuLYfyxw6FvC0K'),
 (0, 'admin', 'admin@gmail.com', '$2y$10$XTuqwGZl5Lq9MINlLrWASu22O69fgaS2/mxA4ob6TM3.UIQiL9w2W'),
 (0, 'admin2', 'admin2@gmail.com', '$2y$10$akHQYmNMYHOudDgP9xDNvu/3ssCMwmQs.46gip0HJ4kuHIaT29UXW');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `alliedbus`
+--
+ALTER TABLE `alliedbus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `loans`
+--
+ALTER TABLE `loans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memberbfs`
+--
+ALTER TABLE `memberbfs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `savings`
+--
+ALTER TABLE `savings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `alliedbus`
+--
+ALTER TABLE `alliedbus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `loans`
+--
+ALTER TABLE `loans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `memberbfs`
+--
+ALTER TABLE `memberbfs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `savings`
+--
+ALTER TABLE `savings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

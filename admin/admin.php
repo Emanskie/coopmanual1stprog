@@ -126,17 +126,17 @@ if (!isset($_SESSION["user"])) {
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="loans.php">
               <i class="bi bi-circle"></i><span>Loan Products</span>
             </a>
           </li>
           <li>
-            <a href="components-badges.html">
+            <a href="alliedbus.php">
               <i class="bi bi-circle"></i><span>Allied Businesses</span>
             </a>
           </li>
           <li>
-            <a href="components-breadcrumbs.html">
+            <a href="memberbfs.php">
               <i class="bi bi-circle"></i><span>Membership Benefits</span>
             </a>
           </li>

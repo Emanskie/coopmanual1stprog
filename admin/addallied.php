@@ -261,118 +261,104 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Edit Savings Product</h1>
+      <h1>Add Allied Businesses</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
-          <li class="breadcrumb-item active">Edit Savings</li>
+          <li class="breadcrumb-item active">Add Allied Businesses</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
 
-        <!-- Updated Edit Form -->
-        <form action="" method="post" enctype="multipart/form-data">
-            <h2>Edit Item</h2>
-            <?php
-            // Get the item details based on the provided ID
-            $editId = $_GET['id'];
-            $itemDetails = getItemDetails($editId);
-            ?>
-            <input type="hidden" name="edit_id" value="<?php echo $itemDetails['id']; ?>">
-            <div class="mb-3">
-                <label for="edit_name" class="form-label">Name:</label>
-                <input type="text" class="form-control" name="edit_name" value="<?php echo $itemDetails['name']; ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="edit_description" class="form-label">Description:</label>
-                <textarea class="form-control" name="edit_description" rows="3" required><?php echo $itemDetails['description']; ?></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="edit_image" class="form-label">New Image:</label>
-                <input type="file" class="form-control" name="edit_image" accept="image/*">
-                <span style="color:red; font-size:12px;">Only jpg / jpeg / png / gif format allowed. Leave empty to keep the existing image.</span>
-            </div>
-            <button type="submit" class="btn btn-primary" name="edit_submit">Update Item</button>
-        </form>
-        <a href="savings.php" class="btn btn-secondary">Back</a>
+      <!-- Add Item Form -->
+      <form method="POST" enctype="multipart/form-data">
+          <p class="hint-text">Fill the form below</p>
 
-                        <?php
-                // Function to get details of a specific item for editing
-                function getItemDetails($itemId)
-                {
-                    $conn = new mysqli("localhost", "root", "", "coop");
+          <div class="form-group">
+              <div class="row">
+                  <div class="col"><input type="text" class="form-control" name="name" placeholder="Name of the Service" required="true"></div>
+              </div>
+          </div>
 
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+          <div class="form-group">
+              <textarea class="form-control" name="description" placeholder="Description" required="true"></textarea>
+          </div>
 
-                    $itemId = $conn->real_escape_string($itemId);
+          <div class="form-group">
+              <select class="form-control" name="category" required>
+                  <option value="" disabled selected>Select a Category</option>
+                  <option value="msuiitnca">MSU-IIT National Cooperative Academy</option>
+                  <option value="climbs">Insurances offered by CLIMBS</option>
+                  <option value="housingcoop">Housing Cooperative</option>
+                  <option value="agribus">Agri-Business</option>
+              </select>
+          </div>
 
-                    $result = $conn->query("SELECT id, name, description, image FROM savings WHERE id = $itemId");
+          <div class="form-group">
+              <input type="file" class="form-control" name="image" required>
+              <span style="color:red; font-size:12px;">Only jpg / jpeg / png / gif format allowed.</span>
+          </div>
 
-                    $conn->close();
+          <div class="form-group">
+              <button type="submit" class="btn btn-success btn-lg btn-block" name="submit">Submit</button>
+          </div>
+      </form>
 
-                    return $result->fetch_assoc();
-                }
+      <!-- For simplicity, let's just include a back button -->
+      <a href="alliedbus.php" class="btn btn-secondary">Back</a>
 
-                // Check if the form is submitted for editing
-                if (isset($_POST['edit_submit'])) {
-                    $editId = $_POST['edit_id'];
-                    $editName = $_POST['edit_name'];
-                    $editDescription = $_POST['edit_description'];
+      <?php
+      // Database Connection
+      $conn = new mysqli("localhost", "root", "", "coop");
 
-                    // Get the existing image details
-                    $existingImage = getItemDetails($editId)['image'];
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+      }
 
-                    // Check if a new image is uploaded
-                    if (!empty($_FILES["edit_image"]["name"])) {
-                        $editImage = $_FILES["edit_image"]["name"];
-                        $extension = strtolower(pathinfo($editImage, PATHINFO_EXTENSION));
-                        $allowedExtensions = array("jpg", "jpeg", "png", "gif");
+      if (isset($_POST['submit'])) {
+          // Getting the post values
+          $name = $_POST['name'];
+          $description = $_POST['description'];
+          $category = $_POST['category'];
 
-                        // Validation for allowed extensions
-                        if (!in_array($extension, $allowedExtensions)) {
-                            echo "<script>alert('Invalid format. Only jpg / jpeg / png / gif format allowed');</script>";
-                            // You might want to redirect or handle this error appropriately
-                        } else {
-                            // Rename the new image file
-                            $editImage = md5($editImage) . time() . "." . $extension;
+          // Getting image details
+          $image = $_FILES["image"]["name"];
 
-                            // Code for moving the new image into the directory
-                            move_uploaded_file($_FILES["edit_image"]["tmp_name"], "uploads/" . $editImage);
+          // Get the image extension
+          $extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
 
-                            // Remove the existing image file
-                            if (file_exists("uploads/" . $existingImage)) {
-                                unlink("uploads/" . $existingImage);
-                            }
-                        }
-                    } else {
-                        // No new image, keep the existing one
-                        $editImage = $existingImage;
-                    }
+          // Allowed extensions
+          $allowed_extensions = array("jpg", "jpeg", "png", "gif");
 
-                    // Update the item in the database
-                    $conn = new mysqli("localhost", "root", "", "coop");
+          // Validation for allowed extensions
+          if (!in_array($extension, $allowed_extensions)) {
+              echo "<script>alert('Invalid format. Only jpg / jpeg / png / gif format allowed');</script>";
+          } else {
+              // Rename the image file
+              $imgnewfile = md5($image) . time() . "." . $extension;
 
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+              // Code for moving the image into the directory
+              move_uploaded_file($_FILES["image"]["tmp_name"], "uploads/" . $imgnewfile);
 
-                    $editId = $conn->real_escape_string($editId);
-                    $editName = $conn->real_escape_string($editName);
-                    $editDescription = $conn->real_escape_string($editDescription);
+              // Query for data insertion
+              $query = mysqli_query($conn, "INSERT INTO alliedbus (name, description, image, category) VALUES ('$name', '$description', '$imgnewfile', '$category')");
 
-                    // Update query
-                    $query = "UPDATE savings SET name = '$editName', description = '$editDescription', image = '$editImage' WHERE id = $editId";
+              if ($query) {
+                  echo "<script>alert('You have successfully inserted the data');</script>";
+                  echo "<script type='text/javascript'> document.location ='alliedbus.php'; </script>";
+              } else {
+                  echo "<script>alert('Something Went Wrong. Please try again');</script>";
+              }
+          }
+      }
 
-                    if ($conn->query($query)) {
-                        echo "<script>alert('Item updated successfully');</script>";
-                        echo "<script type='text/javascript'> document.location ='savings.php'; </script>";
-                    } else {
-                        echo "<script>alert('Something Went Wrong. Please try again');</script>";
-                    }
+      // Close the database connection
+      $conn->close();
+      ?>
 
-                    $conn->close();
-                }
-                ?>
+      <!-- Bootstrap JS and Popper.js -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+      </body>
+      </html>

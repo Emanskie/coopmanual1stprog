@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION["user"])) {
+   header("Location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,8 +96,7 @@
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
+          </li><!-- End Profile Nav -->
       </ul>
     </nav><!-- End Icons Navigation -->
 
@@ -261,118 +266,127 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Edit Savings Product</h1>
+      <h1>Loans Products</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
-          <li class="breadcrumb-item active">Edit Savings</li>
+          <li class="breadcrumb-item active">Cash & Loans</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
+    <!-- Add Button -->
+    <a href="addloans.php" class="btn btn-success mb-3">Add</a>
 
-        <!-- Updated Edit Form -->
-        <form action="" method="post" enctype="multipart/form-data">
-            <h2>Edit Item</h2>
-            <?php
-            // Get the item details based on the provided ID
-            $editId = $_GET['id'];
-            $itemDetails = getItemDetails($editId);
-            ?>
-            <input type="hidden" name="edit_id" value="<?php echo $itemDetails['id']; ?>">
-            <div class="mb-3">
-                <label for="edit_name" class="form-label">Name:</label>
-                <input type="text" class="form-control" name="edit_name" value="<?php echo $itemDetails['name']; ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="edit_description" class="form-label">Description:</label>
-                <textarea class="form-control" name="edit_description" rows="3" required><?php echo $itemDetails['description']; ?></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="edit_image" class="form-label">New Image:</label>
-                <input type="file" class="form-control" name="edit_image" accept="image/*">
-                <span style="color:red; font-size:12px;">Only jpg / jpeg / png / gif format allowed. Leave empty to keep the existing image.</span>
-            </div>
-            <button type="submit" class="btn btn-primary" name="edit_submit">Update Item</button>
-        </form>
-        <a href="savings.php" class="btn btn-secondary">Back</a>
+    <!-- Table -->
+    <table class="table table-bordered">
+        <thead>
+        <tr id="row_1">
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+          // Assuming you have a database connection here
+          $conn = new mysqli("localhost", "root", "", "coop");
 
-                        <?php
-                // Function to get details of a specific item for editing
-                function getItemDetails($itemId)
-                {
-                    $conn = new mysqli("localhost", "root", "", "coop");
+          if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+          }
 
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+          // Fetch data from the database
+        $result = $conn->query("SELECT id, name, description, image, category FROM loans");
 
-                    $itemId = $conn->real_escape_string($itemId);
+        while ($row = $result->fetch_assoc()) {
+          echo "<tr>";
+          echo "<td>{$row['name']}</td>";
+          echo "<td>{$row['description']}</td>";
+          // Print the image path for debugging
+          $imagePath = "uploads/{$row['image']}";
+          echo "<td><img src='$imagePath' alt='Image' style='max-width: 100px;'></td>";
+          echo "<td>{$row['category']}</td>";
+          echo "<td>";
+          echo "<a href='editloans.php?id={$row['id']}' class='btn btn-warning edit-btn'>Edit</a>";
+          echo "<button class='btn btn-danger delete-btn' onclick='confirmDelete({$row['id']})'>Delete</button>";
+          echo "</td>";
+          echo "</tr>";
+      }
 
-                    $result = $conn->query("SELECT id, name, description, image FROM savings WHERE id = $itemId");
+        $conn->close();
+        ?>
 
-                    $conn->close();
-
-                    return $result->fetch_assoc();
+              <?php
+              // Function to delete an item from the database
+              function deleteItem($itemId) {
+                $conn = new mysqli("localhost", "root", "", "coop");
+            
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
                 }
-
-                // Check if the form is submitted for editing
-                if (isset($_POST['edit_submit'])) {
-                    $editId = $_POST['edit_id'];
-                    $editName = $_POST['edit_name'];
-                    $editDescription = $_POST['edit_description'];
-
-                    // Get the existing image details
-                    $existingImage = getItemDetails($editId)['image'];
-
-                    // Check if a new image is uploaded
-                    if (!empty($_FILES["edit_image"]["name"])) {
-                        $editImage = $_FILES["edit_image"]["name"];
-                        $extension = strtolower(pathinfo($editImage, PATHINFO_EXTENSION));
-                        $allowedExtensions = array("jpg", "jpeg", "png", "gif");
-
-                        // Validation for allowed extensions
-                        if (!in_array($extension, $allowedExtensions)) {
-                            echo "<script>alert('Invalid format. Only jpg / jpeg / png / gif format allowed');</script>";
-                            // You might want to redirect or handle this error appropriately
-                        } else {
-                            // Rename the new image file
-                            $editImage = md5($editImage) . time() . "." . $extension;
-
-                            // Code for moving the new image into the directory
-                            move_uploaded_file($_FILES["edit_image"]["tmp_name"], "uploads/" . $editImage);
-
-                            // Remove the existing image file
-                            if (file_exists("uploads/" . $existingImage)) {
-                                unlink("uploads/" . $existingImage);
-                            }
-                        }
-                    } else {
-                        // No new image, keep the existing one
-                        $editImage = $existingImage;
-                    }
-
-                    // Update the item in the database
-                    $conn = new mysqli("localhost", "root", "", "coop");
-
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $editId = $conn->real_escape_string($editId);
-                    $editName = $conn->real_escape_string($editName);
-                    $editDescription = $conn->real_escape_string($editDescription);
-
-                    // Update query
-                    $query = "UPDATE savings SET name = '$editName', description = '$editDescription', image = '$editImage' WHERE id = $editId";
-
+            
+                $itemId = $conn->real_escape_string($itemId);
+            
+                // Get category and image name for deletion
+                $result = $conn->query("SELECT category, image FROM loans WHERE id = $itemId");
+            
+                if ($result && $row = $result->fetch_assoc()) {
+                    // Delete query
+                    $query = "DELETE FROM loans WHERE id = $itemId";
+            
                     if ($conn->query($query)) {
-                        echo "<script>alert('Item updated successfully');</script>";
-                        echo "<script type='text/javascript'> document.location ='savings.php'; </script>";
+                        // Deletion successful
+                        echo "<script>alert('Item deleted successfully');</script>";
+            
+                        // Remove the image file
+                        $categoryFolder = $row['category'];
+                        $imageName = $row['image'];
+                        $imagePath = "uploads/{$categoryFolder}/{$imageName}";
+            
+                        if (file_exists($imagePath)) {
+                            unlink($imagePath);
+                        }
+            
+                        // Remove the table row using JavaScript
+                        echo "<script>removeTableRow('row_$itemId');</script>";
                     } else {
-                        echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                        // Deletion failed
+                        echo "<script>alert('Failed to delete item. Please try again');</script>";
                     }
-
-                    $conn->close();
+                } else {
+                    // No rows found for the given ID
+                    echo "<script>alert('Item not found');</script>";
                 }
-                ?>
+            
+                $conn->close();
+            }
+            
+            // Check if the delete parameter is present in the URL
+            if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+                // Call the deleteItem function with the provided item ID
+                deleteItem($_GET['delete']);
+            }
+            ?>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function confirmDelete(itemId) {
+        if (confirm("Are you sure you want to delete this item?")) {
+            // Redirect to the same page with the 'delete' parameter
+            window.location.href = "loans.php?delete=" + itemId;
+            // Alternatively, you can use the following line to force a full page reload
+            // location.reload(true);
+        }
+    }
+</script>
+</body>
+</html>

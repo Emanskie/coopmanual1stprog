@@ -261,11 +261,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Edit Savings Product</h1>
+      <h1>Edit Loan Products</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin.php">Home</a></li>
-          <li class="breadcrumb-item active">Edit Savings</li>
+          <li class="breadcrumb-item active">Edit Loans</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -295,7 +295,7 @@
             </div>
             <button type="submit" class="btn btn-primary" name="edit_submit">Update Item</button>
         </form>
-        <a href="savings.php" class="btn btn-secondary">Back</a>
+        <a href="loans.php" class="btn btn-secondary">Back</a>
 
                         <?php
                 // Function to get details of a specific item for editing
@@ -309,7 +309,7 @@
 
                     $itemId = $conn->real_escape_string($itemId);
 
-                    $result = $conn->query("SELECT id, name, description, image FROM savings WHERE id = $itemId");
+                    $result = $conn->query("SELECT id, name, description, image FROM loans WHERE id = $itemId");
 
                     $conn->close();
 
@@ -364,11 +364,11 @@
                     $editDescription = $conn->real_escape_string($editDescription);
 
                     // Update query
-                    $query = "UPDATE savings SET name = '$editName', description = '$editDescription', image = '$editImage' WHERE id = $editId";
+                    $query = "UPDATE loans SET name = '$editName', description = '$editDescription', image = '$editImage' WHERE id = $editId";
 
                     if ($conn->query($query)) {
                         echo "<script>alert('Item updated successfully');</script>";
-                        echo "<script type='text/javascript'> document.location ='savings.php'; </script>";
+                        echo "<script type='text/javascript'> document.location ='loans.php'; </script>";
                     } else {
                         echo "<script>alert('Something Went Wrong. Please try again');</script>";
                     }

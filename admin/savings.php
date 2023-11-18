@@ -125,17 +125,17 @@ if (!isset($_SESSION["user"])) {
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="loans.php">
               <i class="bi bi-circle"></i><span>Loan Products</span>
             </a>
           </li>
           <li>
-            <a href="components-badges.html">
+            <a href="alliedbus.php">
               <i class="bi bi-circle"></i><span>Allied Businesses</span>
             </a>
           </li>
           <li>
-            <a href="components-breadcrumbs.html">
+            <a href="memberbfs.php">
               <i class="bi bi-circle"></i><span>Membership Benefits</span>
             </a>
           </li>
@@ -274,97 +274,119 @@ if (!isset($_SESSION["user"])) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
+    
+    <!-- Add Button -->
+    <a href="addsavings.php" class="btn btn-success mb-3">Add</a>
 
-    <div class="container mt-4">
-        <h2>CRUD Table</h2>
+    <!-- Table -->
+    <table class="table table-bordered">
+        <thead>
+        <tr id="row_1">
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+          // Assuming you have a database connection here
+          $conn = new mysqli("localhost", "root", "", "coop");
 
-        <!-- Add Button -->
-        <a href="addsavings.php" class="btn btn-success mb-3">Add</a>
+          if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+          }
 
-        <!-- Table -->
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    // Assuming you have a database connection here
-                    $conn = new mysqli("localhost", "root", "", "coop");
+          // Fetch data from the database
+        $result = $conn->query("SELECT id, name, description, image, category FROM savings");
 
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+        while ($row = $result->fetch_assoc()) {
+          echo "<tr>";
+          echo "<td>{$row['name']}</td>";
+          echo "<td>{$row['description']}</td>";
+          // Print the image path for debugging
+          $imagePath = "uploads/{$row['image']}";
+          echo "<td><img src='$imagePath' alt='Image' style='max-width: 100px;'></td>";
+          echo "<td>{$row['category']}</td>";
+          echo "<td>";
+          echo "<a href='editsavings.php?id={$row['id']}' class='btn btn-warning edit-btn'>Edit</a>";
+          echo "<button class='btn btn-danger delete-btn' onclick='confirmDelete({$row['id']})'>Delete</button>";
+          echo "</td>";
+          echo "</tr>";
+      }
 
-                    // Fetch data from the database
-                    $result = $conn->query("SELECT id, name, description, image FROM savings");
+        $conn->close();
+        ?>
 
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>{$row['name']}</td>";
-                        echo "<td>{$row['description']}</td>";
-                        echo "<td><img src='uploads/{$row['image']}' alt='Image' style='max-width: 100px;'></td>";
-                        echo "<td>";
-                        echo "<a href='editsavings.php?id={$row['id']}' class='btn btn-warning edit-btn'>Edit</a>";
-                        echo "<button class='btn btn-danger delete-btn' onclick='confirmDelete({$row['id']})'>Delete</button>";
-                        echo "</td>";
-                        echo "</tr>";
-                    }
-
-                    $conn->close();
-                ?>
+              <?php
+              // Function to delete an item from the database
+              function deleteItem($itemId) {
+                $conn = new mysqli("localhost", "root", "", "coop");
             
-                <?php
-                // Function to delete an item from the database
-                function deleteItem($itemId) {
-                    $conn = new mysqli("localhost", "root", "", "coop");
-
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $itemId = $conn->real_escape_string($itemId);
-
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+            
+                $itemId = $conn->real_escape_string($itemId);
+            
+                // Get category and image name for deletion
+                $result = $conn->query("SELECT category, image FROM savings WHERE id = $itemId");
+            
+                if ($result && $row = $result->fetch_assoc()) {
                     // Delete query
                     $query = "DELETE FROM savings WHERE id = $itemId";
-
+            
                     if ($conn->query($query)) {
                         // Deletion successful
                         echo "<script>alert('Item deleted successfully');</script>";
+            
+                        // Remove the image file
+                        $categoryFolder = $row['category'];
+                        $imageName = $row['image'];
+                        $imagePath = "uploads/{$categoryFolder}/{$imageName}";
+            
+                        if (file_exists($imagePath)) {
+                            unlink($imagePath);
+                        }
+            
+                        // Remove the table row using JavaScript
+                        echo "<script>removeTableRow('row_$itemId');</script>";
                     } else {
                         // Deletion failed
                         echo "<script>alert('Failed to delete item. Please try again');</script>";
                     }
-
-                    $conn->close();
+                } else {
+                    // No rows found for the given ID
+                    echo "<script>alert('Item not found');</script>";
                 }
-
-                // Check if the delete parameter is present in the URL
-                if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-                    // Call the deleteItem function with the provided item ID
-                    deleteItem($_GET['delete']);
-                }
-                ?>
-
-            </tbody>
-        </table>
-        </div>
-
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-            function confirmDelete(itemId) {
-            if (confirm("Are you sure you want to delete this item?")) {
-                // Redirect to the same page with the 'delete' parameter
-                window.location.href = "savings.php?delete=" + itemId;
+            
+                $conn->close();
             }
-        }
-    </script>
+            
+            // Check if the delete parameter is present in the URL
+            if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+                // Call the deleteItem function with the provided item ID
+                deleteItem($_GET['delete']);
+            }
+            ?>
 
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function confirmDelete(itemId) {
+        if (confirm("Are you sure you want to delete this item?")) {
+            // Redirect to the same page with the 'delete' parameter
+            window.location.href = "savings.php?delete=" + itemId;
+            // Alternatively, you can use the following line to force a full page reload
+            // location.reload(true);
+        }
+    }
+</script>
 </body>
 </html>
