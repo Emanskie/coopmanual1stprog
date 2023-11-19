@@ -43,7 +43,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #f03c02;
+  background: #9C0D0F;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -57,7 +57,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #fd541e;
+  background: #9C0D0F;
   color: #fff;
 }
 
@@ -79,21 +79,21 @@ h6 {
 # Top Bar
 --------------------------------------------------------------*/
 #topbar {
-  background: #f8f6f5;
+  background: #9C0D0F;
   padding: 10px 0;
   font-size: 14px;
 }
 
 #topbar .contact-info i {
   font-style: normal;
-  color: #f03c02;
+  color: #ffffff;
 }
 
 #topbar .contact-info i a,
 #topbar .contact-info i span {
-  padding-left: 5px;
-  color: #2b2320;
-}
+  padding-left: 10px;
+  color: #ffffff;
+} 
 
 #topbar .contact-info i a {
   line-height: 0;
@@ -101,18 +101,18 @@ h6 {
 }
 
 #topbar .contact-info i a:hover {
-  color: #f03c02;
+  color: #FFC107;
 }
 
 #topbar .social-links a {
-  color: #65534c;
+  color: #ffffff;
   line-height: 0;
   transition: 0.3s;
   margin-left: 15px;
 }
 
 #topbar .social-links a:hover {
-  color: #f03c02;
+  color: #FFC107;
 }
 
 /*--------------------------------------------------------------
@@ -127,29 +127,17 @@ h6 {
 }
 
 #header.fixed-top {
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-}
-
-#header .logo h1 {
-  font-size: 28px;
-  margin: 0;
-  padding: 10px 0;
-  line-height: 1;
-  font-weight: 400;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-#header .logo h1 a,
-#header .logo h1 a:hover {
-  color: #2b2320;
-  text-decoration: none;
+  box-shadow: 0px 0px 20px 0px #9C0D0F
 }
 
 #header .logo img {
   padding: 0;
   margin: 0;
-  max-height: 40px;
+  max-height: 70px;
+}
+
+#header nav ul li a:hover {
+  color: rgb(167, 6, 6); /* Change this to your desired hover color */
 }
 
 .scrolled-offset {
@@ -202,12 +190,12 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #f03c02;
+  color: rgb(199, 7, 7);
 }
 
 .navbar .getstarted,
 .navbar .getstarted:focus {
-  background: #f03c02;
+  background: #f03d028a;
   padding: 8px 20px;
   margin-left: 30px;
   border-radius: 4px;
@@ -436,7 +424,7 @@ h6 {
   padding: 20px;
   color: #fff;
   animation-duration: 0.5s;
-  border-top: 5px solid #f03c02;
+  border-top: 5px solid rgb(255, 255, 255);
 }
 
 #hero .carousel-content h2 {
@@ -459,11 +447,11 @@ h6 {
   margin: 10px;
   color: #fff;
   animation-delay: 0.8s;
-  border: 2px solid #f03c02;
+  border: 2px solid rgb(199, 7, 7);
 }
 
 #hero .btn-get-started:hover {
-  background: #f03c02;
+  background: rgb(238, 35, 35);
   color: #fff;
   text-decoration: none;
 }
@@ -514,7 +502,7 @@ h6 {
 
 @media (min-width: 1024px) {
   #hero .carousel-content {
-    width: 60%;
+    width: 50%;
   }
 
   #hero .carousel-control-prev,
@@ -634,7 +622,7 @@ section {
 # Cta
 --------------------------------------------------------------*/
 .cta {
-  background: #f3f1f0;
+  background: linear-gradient(to right, #ffffff, rgb(255, 255, 255), #9C0D0F); /* Adjust colors as needed */
   padding: 60px 0;
   color: #574741;
 }
@@ -645,7 +633,7 @@ section {
 }
 
 .cta h3 span {
-  color: #f03c02;
+  color: rgb(199, 7, 7);
 }
 
 .cta p {
@@ -663,15 +651,15 @@ section {
   padding: 10px 25px;
   border-radius: 2px;
   transition: 0.4s;
-  margin: 10px;
+  margin: 10px 10px 10px 0;
   border-radius: 4px;
-  border: 2px solid #f03c02;
-  color: #f03c02;
+  border: 2px solid rgb(199, 7, 7);
+  color: rgb(199, 7, 7);
   background: #fff;
 }
 
 .cta .cta-btn:hover {
-  background: #f03c02;
+  background: rgb(199, 7, 7);
   color: #fff;
 }
 
@@ -700,7 +688,8 @@ section {
   border: 1px solid #ebe6e4;
   height: 200px;
   position: relative;
-  background: #faf9f8;
+  background: rgb(255, 255, 255);
+  box-shadow: 100px 100px 100px rgba(235, 230, 228, 0.8);
 }
 
 .services .icon {
@@ -716,7 +705,7 @@ section {
   text-align: center;
   width: 72px;
   height: 72px;
-  background: #f03c02;
+  background: rgb(199, 7, 7);
 }
 
 .services .icon i {
@@ -738,15 +727,15 @@ section {
 
 .services .icon-box:hover .icon {
   background: #fff;
-  border: 2px solid #f03c02;
+  border: 2px solid rgb(199, 7, 7);
 }
 
 .services .icon-box:hover .icon i {
-  color: #f03c02;
+  color: rgb(199, 7, 7);
 }
 
 .services .icon-box:hover .title a {
-  color: #f03c02;
+  color: rgb(199, 7, 7);
 }
 
 .services .description {
@@ -2190,4 +2179,9 @@ section {
   background: #fd5c28;
   color: #fff;
   text-decoration: none;
+}
+
+#ComingSoonBox {
+  background-color: #f1f1f1;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }

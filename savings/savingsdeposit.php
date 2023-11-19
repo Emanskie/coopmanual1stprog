@@ -1,3 +1,4 @@
+<?php include('header.php') ?>
 <!-- End Header -->
         <style>
                 body {
@@ -88,3 +89,4 @@
 </body>
 
  <!-- ======= Footer ======= -->
+ <?php include('footer.php') ?>
