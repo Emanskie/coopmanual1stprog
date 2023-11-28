@@ -1,7 +1,7 @@
 <?php include('assets/header.php') ?>
 
- <!-- ======= Hero Section ======= -->
- <section id="hero">
+<!-- ======= Hero Section ======= -->
+<section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
       <div class="carousel-inner" role="listbox">
@@ -76,44 +76,44 @@
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
       <div class="container">
-
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="icon-box" data-aos="fade-up">
               <div class="icon"><i class="bi bi-bank"></i></div>
-              <h4 class="title"><a href="">Savings</a></h4>
+              <h4 class="title"><a href="servicephp/savings.php">Savings</a>
+              </h4>
               <p class="description">Secure your financial future with our savings services.</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="bi bi-cash-coin"></i></div>
-              <h4 class="title"><a href="">Cash and Loans</a></h4>
+              <h4 class="title"><a href="servicephp/cashandloans.php">Cash and Loans</a></h4>
               <p class="description">Reach you goals faster with our cash and loan services.</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
               <div class="icon"><i class="bi bi-houses"></i></div>
-              <h4 class="title"><a href="">Allied Businesses</a></h4>
+              <h4 class="title"><a href="servicephp/alliedbusinesses.php">Allied Businesses</a></h4>
               <p class="description">Meet the people who share the same vision with us.</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
               <div class="icon"><i class="bi bi-person-fill-check"></i></div>
-              <h4 class="title"><a href="">Member Benefits</a></h4>
+              <h4 class="title"><a href="servicephp/member.php">Member Benefits</a></h4>
               <p class="description">Join us for exclusive benefits!</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div id="ComingSoonBox" class="icon-box" data-aos="fade-up" data-aos-delay="200">
-              
+
               <h4 class="title"><a href="">COMING SOON</a></h4>
               <p class="description">More services will be made available soon...</p>
             </div>
           </div>
-      </div>
+        </div>
     </section><!-- End Services Section -->
 
 

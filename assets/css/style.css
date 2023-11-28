@@ -137,7 +137,7 @@ h6 {
 }
 
 #header nav ul li a:hover {
-  color: rgb(167, 6, 6); /* Change this to your desired hover color */
+  color: #9C0D0F; /* Change this to your desired hover color */
 }
 
 .scrolled-offset {
@@ -190,7 +190,7 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: rgb(199, 7, 7);
+  color: #9C0D0F;
 }
 
 .navbar .getstarted,
@@ -447,7 +447,7 @@ h6 {
   margin: 10px;
   color: #fff;
   animation-delay: 0.8s;
-  border: 2px solid rgb(199, 7, 7);
+  border: 2px solid #9C0D0F;
 }
 
 #hero .btn-get-started:hover {
@@ -633,7 +633,7 @@ section {
 }
 
 .cta h3 span {
-  color: rgb(199, 7, 7);
+  color: #9C0D0F;
 }
 
 .cta p {
@@ -653,14 +653,14 @@ section {
   transition: 0.4s;
   margin: 10px 10px 10px 0;
   border-radius: 4px;
-  border: 2px solid rgb(199, 7, 7);
-  color: rgb(199, 7, 7);
+  border: 2px solid #9C0D0F;
+  color: #9C0D0F;
   background: #fff;
 }
 
 .cta .cta-btn:hover {
-  background: rgb(199, 7, 7);
-  color: #fff;
+  background: #FFC107;
+  color: #9C0D0F;
 }
 
 @media (max-width: 1024px) {
@@ -705,7 +705,7 @@ section {
   text-align: center;
   width: 72px;
   height: 72px;
-  background: rgb(199, 7, 7);
+  background: #9C0D0F;
 }
 
 .services .icon i {
@@ -727,15 +727,15 @@ section {
 
 .services .icon-box:hover .icon {
   background: #fff;
-  border: 2px solid rgb(199, 7, 7);
+  border: 2px solid #9C0D0F;
 }
 
 .services .icon-box:hover .icon i {
-  color: rgb(199, 7, 7);
+  color: #9C0D0F;
 }
 
 .services .icon-box:hover .title a {
-  color: rgb(199, 7, 7);
+  color: #9C0D0F;
 }
 
 .services .description {
@@ -2029,12 +2029,12 @@ section {
 #footer {
   color: #b4aca8;
   font-size: 14px;
-  background: #14100f;
+  background: #2c2c2c;
 }
 
 #footer .footer-top {
   padding: 60px 0 30px 0;
-  background: black;
+  background: #2c2c2c;
 }
 
 #footer .footer-top .footer-contact {
@@ -2181,7 +2181,30 @@ section {
   text-decoration: none;
 }
 
+/*----------------------------------------- 
+# COMING SOON
+------------------------------------------ */
 #ComingSoonBox {
   background-color: #f1f1f1;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*------------------------------------------
+# SAVINGS BAR
+------------------------------------------*/
+#savingsbar {
+  padding: 20px;
+  background-color: #FFC107;
+  height: 100%;
+  transition: padding 0.5s ease-in-out;
+}
+
+#savingsbar:hover {
+  padding: 80px; /* Adjust the final padding value as needed */
+}
+
+#savingsbar h1 {
+ text-align: left;
+ font-size: 100px;
+ font-weight: bolder;
 }
