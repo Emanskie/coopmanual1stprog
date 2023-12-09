@@ -86,7 +86,17 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
 
+        <div class="search-bar-container">
+      <i class="bi bi-search magnifying-glass" id="searchIcon"></i>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button id="searchButton">Search</button>
+        </div>
+        </div>
+      </nav><!-- .navbar -->
+      <script src="\CoopManual\assets\js\main.js"></script>
     </div>
   </header><!-- End Header -->
+
+  

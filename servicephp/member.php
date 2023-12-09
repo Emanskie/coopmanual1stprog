@@ -1,4 +1,8 @@
 <?php include('header.php') ?>
+
+    <div id="savingsbar">
+        <h1><i class="bi bi-people"> MEMBER BENEFITS</i> </h>
+    </div>
     <!-- THS WILL CONTAIN ALL THE NEEDED BODY CONTENT FOR THE SERVICES PUHON -->
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">

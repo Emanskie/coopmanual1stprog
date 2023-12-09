@@ -25,28 +25,28 @@
       <div class="col-lg-4 col-md-6">
         <div class="icon-box" data-aos="fade-up">
           <div class="icon"><i class="bi bi-bank"></i></div>
-          <h4 class="title"><a href="">Savings</a></h4>
+          <h4 class="title"><a href="\CoopManual\servicephp\savings.php">Savings</a></h4>
           <p class="description">Secure your financial future with our savings services.</p>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
           <div class="icon"><i class="bi bi-cash-coin"></i></div>
-          <h4 class="title"><a href="">Cash and Loans</a></h4>
+          <h4 class="title"><a href="\CoopManual\servicephp\cashandloans.php">Cash and Loans</a></h4>
           <p class="description">Reach you goals faster with our cash and loan services.</p>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
           <div class="icon"><i class="bi bi-houses"></i></div>
-          <h4 class="title"><a href="">Allied Businesses</a></h4>
+          <h4 class="title"><a href="\CoopManual\servicephp\alliedbusinesses.php">Allied Businesses</a></h4>
           <p class="description">Meet the people who share the same vision with us.</p>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
           <div class="icon"><i class="bi bi-person-fill-check"></i></div>
-          <h4 class="title"><a href="">Member Benefits</a></h4>
+          <h4 class="title"><a href="\CoopManual\servicephp\member.php">Member Benefits</a></h4>
           <p class="description">Join us for exclusive benefits!</p>
         </div>
       </div>

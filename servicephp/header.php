@@ -27,7 +27,6 @@
 
   <!-- Template Main CSS File -->
   <link href="/CoopManual/assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -86,7 +85,35 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
+
+        <div class="search-bar-container">
+    <i class="bi bi-search magnifying-glass" id="searchIcon"></i>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button id="searchButton">Search</button>
+    </div>
+    </div>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
+
+  <!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+  <div class="container">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Services</h2>
+      <ol>
+        <li><a href="\CoopManual\index.php">Home</a></li>
+        <li>Services</li>
+      </ol>
+    </div>
+
+  </div>
+</section><!-- End Breadcrumbs -->
+
+
+
+
+

@@ -239,4 +239,59 @@
     })
   });
 
+  class SearchUtility {
+    constructor() {
+      // Bind the methods to the instance to make sure 'this' refers to the instance
+      this.toggleSearchBar = this.toggleSearchBar.bind(this);
+      this.performSearch = this.performSearch.bind(this);
+  
+      // Attach event listeners
+      document.getElementById('searchIcon').addEventListener('click', this.toggleSearchBar);
+      document.getElementById('searchButton').addEventListener('click', this.performSearch);
+  
+      // Add event listener for 'Enter' key press on the search input
+      document.getElementById('searchInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          this.performSearch();
+        }
+      });
+    }
+  
+    toggleSearchBar() {
+      var searchBar = document.querySelector('.search-bar');
+  
+      // Toggle the visibility of the search bar
+      searchBar.style.display = (searchBar.style.display === 'block') ? 'none' : 'block';
+    }
+  
+    performSearch() {
+      // Get the value entered in the search input
+      var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  
+      // Define the paths you want to link to based on search terms
+      var searchPaths = {
+        'home': 'index.php',
+        'about': 'about.html',
+        'services': 'services.php',
+        'news': 'news.html',
+        'membership': 'membership.html',
+        'career': 'career.html',
+        'contact': 'contact.html',
+        'savings': '/CoopManual/servicephp/savings.php',
+      };
+  
+      // Check if the entered search term matches any key in the searchPaths object
+      if (searchPaths.hasOwnProperty(searchTerm)) {
+        // Redirect to the corresponding path
+        window.location.href = searchPaths[searchTerm];
+      } else {
+        // Provide a default action or error message if no match is found
+        alert('No match found for "' + searchTerm + '".');
+      }
+    }
+  }
+  
+  // Create an instance of the SearchUtility class
+  const searchUtility = new SearchUtility();
+
 })()

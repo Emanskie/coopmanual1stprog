@@ -1,5 +1,6 @@
 <?php include('header.php') ?>
-   <div id="savingsbar">
+
+    <div id="savingsbar">
         <h1><i class="bi bi-bank"></i> SAVINGS</h>
     </div>
     <!-- THS WILL CONTAIN ALL THE NEEDED BODY CONTENT FOR THE SERVICES PUHON -->
