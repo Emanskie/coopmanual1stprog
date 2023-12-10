@@ -66,7 +66,7 @@
             <p> and figure out what you need.</p>
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">take the test</a>
+            <a class="cta-btn align-middle" href="assessmenttest.php">take the test</a>
           </div>
         </div>
 
