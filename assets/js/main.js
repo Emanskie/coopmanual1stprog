@@ -239,59 +239,119 @@
     })
   });
 
-  class SearchUtility {
-    constructor() {
-      // Bind the methods to the instance to make sure 'this' refers to the instance
-      this.toggleSearchBar = this.toggleSearchBar.bind(this);
-      this.performSearch = this.performSearch.bind(this);
+  document.addEventListener('DOMContentLoaded', function () {
+    // SearchUtility class
+    class SearchUtility {
+      constructor() {
+        this.toggleSearchBar = this.toggleSearchBar.bind(this);
+        this.performSearch = this.performSearch.bind(this);
   
-      // Attach event listeners
-      document.getElementById('searchIcon').addEventListener('click', this.toggleSearchBar);
-      document.getElementById('searchButton').addEventListener('click', this.performSearch);
+        document.getElementById('searchIcon').addEventListener('click', this.toggleSearchBar);
+        document.getElementById('searchButton').addEventListener('click', this.performSearch);
+        document.getElementById('searchInput').addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            this.performSearch();
+          }
+        });
+      }
   
-      // Add event listener for 'Enter' key press on the search input
-      document.getElementById('searchInput').addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          this.performSearch();
+      toggleSearchBar() {
+        var searchBar = document.querySelector('.search-bar');
+        searchBar.style.display = (searchBar.style.display === 'block') ? 'none' : 'block';
+      }
+  
+      performSearch() {
+        var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        var searchPaths = {
+          'home': 'index.php',
+          'services': 'services.php',
+          'savings': '/CoopManual/servicephp/savings.php',
+          'Share Capital': '/CoopManual/savings/sharecapital.php',
+          'Savings Deposit': '/CoopManual/savings/savingsdeposit.php',
+          'Time Deposit': '/CoopManual/savings/timedeposit.php',
+          'Youth Sector': '/CoopManual/savings/youthsector.php',
+          'Laboratory Cooperative': '/CoopManual/savings/laboratorycoop.php',
+          'MSU-IIT National Cooperative Academy': '/CoopManual/alliedbus/msuiitnca.php',
+          'Insurance offered from CLIMBS': '/CoopManual/alliedbus/climbs.php',
+          'Housing Cooperative': '/CoopManual/alliedbus/housingcoop.php',
+          'Agri-Business': '/CoopManual/alliedbus/agribus.php',
+          'Micro Loan': '/CoopManual/loans/microloan.php',
+          'MSME Loan': '/CoopManual/loans/msmeloan.php',
+          'Credit Line': '/CoopManual/loans/creditline.php',
+          'Back-to-back Loan': '/CoopManual/loans/backtobackloan.php',
+          'Enhanced Petty Cash Loan': '/CoopManual/loans/pettyloans.php',
+          'Personal Loan': '/CoopManual/loans/personalloan.php',
+          'Salary': '/CoopManual/loans/salaryloan.php',
+          'Educational Loan': '/CoopManual/loans/educloan.php',
+          'Pensioner\'s Loan': '/CoopManual/loans/pensionerloan.php',
+          'Medical Emergency Loan': '/CoopManual/loans/medloan.php',
+          'Enhanced Car Financing Loan': '/CoopManual/loans/carloan.php',
+          'Gadget and Appliance Loan': '/CoopManual/loans/gadgetloan.php',
+          'Bonus/Incentive Loan': '/CoopManual/loans/bonusloan.php',
+          'LGU Salary Loan': '/CoopManual/loans/lguloan.php',
+          'Enhanced COOP Care': '/CoopManual/memberbfs/coopcare.php',
+          'Sunshine (Damayan) Fund': '/CoopManual/memberbfs/sunshine.php',
+          'YAKAP - Yaman sa Kalusugan Program': '/CoopManual/memberbfs/yakap.php',
+        };
+  
+        let minDistance = Infinity;
+        let closestMatch = null;
+  
+        // Check for direct match in searchPaths
+        if (searchPaths.hasOwnProperty(searchTerm)) {
+          window.location.href = searchPaths[searchTerm];
+          return;
         }
-      });
-    }
   
-    toggleSearchBar() {
-      var searchBar = document.querySelector('.search-bar');
+        // Check for similar words using Levenshtein distance
+        for (const title in searchPaths) {
+          const distance = getLevenshteinDistance(searchTerm, title.toLowerCase());
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestMatch = title;
+          }
+        }
   
-      // Toggle the visibility of the search bar
-      searchBar.style.display = (searchBar.style.display === 'block') ? 'none' : 'block';
-    }
-  
-    performSearch() {
-      // Get the value entered in the search input
-      var searchTerm = document.getElementById('searchInput').value.toLowerCase();
-  
-      // Define the paths you want to link to based on search terms
-      var searchPaths = {
-        'home': 'index.php',
-        'about': 'about.html',
-        'services': 'services.php',
-        'news': 'news.html',
-        'membership': 'membership.html',
-        'career': 'career.html',
-        'contact': 'contact.html',
-        'savings': '/CoopManual/servicephp/savings.php',
-      };
-  
-      // Check if the entered search term matches any key in the searchPaths object
-      if (searchPaths.hasOwnProperty(searchTerm)) {
-        // Redirect to the corresponding path
-        window.location.href = searchPaths[searchTerm];
-      } else {
-        // Provide a default action or error message if no match is found
-        alert('No match found for "' + searchTerm + '".');
+        // Redirect if a close match is found
+        if (minDistance < 4 && closestMatch) {
+          window.location.href = searchPaths[closestMatch];
+        } else {
+          alert('No match found for "' + searchTerm + '".');
+        }
       }
     }
-  }
   
-  // Create an instance of the SearchUtility class
-  const searchUtility = new SearchUtility();
+    // Create an instance of the SearchUtility class
+    const searchUtility = new SearchUtility();
+  
+    // Levenshtein distance function
+    function getLevenshteinDistance(a, b) {
+      if (a.length === 0) return b.length;
+      if (b.length === 0) return a.length;
+  
+      const matrix = [];
+  
+      for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+      }
+  
+      for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+      }
+  
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          const cost = a[j - 1] === b[i - 1] ? 0 : 1;
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
+          );
+        }
+      }
+  
+      return matrix[b.length][a.length];
+    }
+  });
 
 })()

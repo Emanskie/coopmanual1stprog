@@ -12,6 +12,10 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #4d4643;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 a {
@@ -569,15 +573,19 @@ section {
 # Breadcrumbs
 --------------------------------------------------------------*/
 .breadcrumbs {
-  padding: 15px 0;
-  background: #2b2320;
+  padding: 5px 0;
+  background: #ffffff;
   min-height: 40px;
+}
+
+#bc-service {
+  color: #65534C;
 }
 
 .breadcrumbs h2 {
   font-size: 28px;
   font-weight: 300;
-  color: #fff;
+  color: #65534C;
 }
 
 .breadcrumbs ol {
@@ -590,7 +598,7 @@ section {
 }
 
 .breadcrumbs ol a {
-  color: #fe825a;
+  color: #ce3032;
 }
 
 .breadcrumbs ol li+li {
@@ -625,6 +633,13 @@ section {
   background: linear-gradient(to right, #ffffff, rgb(255, 255, 255), #9C0D0F); /* Adjust colors as needed */
   padding: 60px 0;
   color: #574741;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius: 30px;
+  border: 1px solid #ddd; /* Set border color */
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for 3D effect */
 }
 
 .cta h3 {
@@ -686,6 +701,7 @@ section {
   margin-bottom: 25px;
   text-align: center;
   border: 1px solid #ebe6e4;
+  border-radius: 20px;
   height: 200px;
   position: relative;
   background: rgb(255, 255, 255);
@@ -2030,6 +2046,8 @@ section {
   color: #b4aca8;
   font-size: 14px;
   background: #2c2c2c;
+  margin-top: auto;
+  background-color: #f2f2f2;
 }
 
 #footer .footer-top {
@@ -2207,6 +2225,7 @@ section {
  text-align: left;
  font-size: 100px;
  font-weight: bolder;
+ font-style: italic;
 }
 
 .search-bar-container {
@@ -2235,3 +2254,87 @@ section {
 .search-bar button {
   margin-right: 5px;
 }
+
+/*------------------------------------------
+# ASSESSMENT TEST FORMS
+------------------------------------------*/
+
+#container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  display: block;
+  padding: 20px; /* Add padding for inner content */
+  background-color: #fff; /* Set background color if needed */
+  border: 1px solid #ddd; /* Set border color */
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for 3D effect */
+  border-radius: 20px; /* Add border-radius for rounded corners */
+}
+
+#container-header {
+  background-color: #9C0D0F;
+  border-radius: 100px;
+  padding: 3px;
+  margin-bottom: 1%;
+}
+
+#container h1 {
+  margin-left: 3%;
+  font-weight: bold;
+  font-style: italic;
+  color: white;
+}
+
+#assessment-label {
+  font-weight: bold;
+}
+
+#submit-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #9C0D0F; /* Initial border color */
+  color: #3b3b3b; /* Initial font color */
+  background-color: transparent; /* Initial background color is transparent */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#submit-btn:hover {
+  background-color: #9C0D0F; /* Hovered background color */
+  color: #fff; /* Hovered font color */
+}
+
+#ass-form {
+  text-align: center;
+}
+
+#category-form {
+  display: inline-block;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#category-select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+

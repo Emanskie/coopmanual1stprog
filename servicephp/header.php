@@ -14,7 +14,9 @@
   <link href="/CoopManual/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="/CoopManual/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -36,7 +38,8 @@
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
         <i class="bi bi-person-circle"><a href="\CoopManual\admin\login.php">Admin</a></i>
-        <i class="bi bi-envelope d-flex align-items-center ms-4"><a href="put the email here">msuiitnmpc@msuiitcoop.org</a></i>
+        <i class="bi bi-envelope d-flex align-items-center ms-4"><a
+            href="put the email here">msuiitnmpc@msuiitcoop.org</a></i>
       </div>
       <div class="social-links d-none d-md-flex align-items-center">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -52,7 +55,7 @@
     <div class="container d-flex justify-content-between">
 
       <div class="logo">
-      <a href="/CoopManual/index.php"><img src="/CoopManual/assets/img/logo5.png" alt="" class="img-fluid"></a>
+        <a href="/CoopManual/index.php"><img src="/CoopManual/assets/img/logo5.png" alt="" class="img-fluid"></a>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo5.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -87,33 +90,28 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
 
         <div class="search-bar-container">
-    <i class="bi bi-search magnifying-glass" id="searchIcon"></i>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search...">
-      <button id="searchButton">Search</button>
-    </div>
-    </div>
+          <i class="bi bi-search magnifying-glass" id="searchIcon"></i>
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button id="searchButton">Search</button>
+          </div>
+        </div>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Breadcrumbs ======= -->
-<section id="breadcrumbs" class="breadcrumbs">
-  <div class="container">
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
 
-    <div class="d-flex justify-content-between align-items-center">
-      <h2>Services</h2>
-      <ol>
-        <li><a href="\CoopManual\index.php">Home</a></li>
-        <li>Services</li>
-      </ol>
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+        <ol>
+          <li><a href="\CoopManual\index.php">Home</a></li>
+          <li id="bc-service">Services</li>
+        </ol>
+      </div>
+
     </div>
-
-  </div>
-</section><!-- End Breadcrumbs -->
-
-
-
-
-
+  </section><!-- End Breadcrumbs -->
