@@ -10,30 +10,30 @@
         <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg);">
           <div class="carousel-container">
             <div class="carousel-content animate__animated animate__fadeInUp">
-              <h2>This is just a <span>Placeholder</span></h2>
-              <p>Wala pami kabalo unsay ibutang diri.</p>
+              <h2>News <span>Placeholder 1</span></h2>
+              <p>This is news for yesterday.</p>
               <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
             </div>
           </div>
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg);">
+        <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-2.jpg);">
           <div class="carousel-container">
             <div class="carousel-content animate__animated animate__fadeInUp">
-              <h2>So is this...</h2>
-              <p>Siguro para nis news module?</p>
+              <h2>News Placeholder 2</h2>
+              <p>This is news for today.</p>
               <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
             </div>
           </div>
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg);">
+        <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-3.jpg);">
           <div class="carousel-container">
             <div class="carousel-content animate__animated animate__fadeInUp">
-              <h2>And this...</h2>
-              <p>Sir Haron is my idol.</p>
+              <h2>News Placeholder 3</h2>
+              <p>This is news for tomorrow.</p>
               <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
             </div>
           </div>

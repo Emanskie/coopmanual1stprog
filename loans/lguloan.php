@@ -15,10 +15,13 @@
                 }
 
                 .table img {
-                    max-width: 100px;
+                    max-width: none;
+                    width: 200%;
                     height: auto;
                     display: block; /* Added this to center-align images within columns */
-                    margin: auto; /* Center-align images within columns */
+                    margin: 0 auto; /* Center-align images within columns */
+                    transform: translateX(-50%); /* Center using transform */
+                    
                 }
                 .card-deck {
                     display: flex;
@@ -32,10 +35,13 @@
                 }
 
                 .card img {
-                    max-width: 100%;
-                    height: auto;
-                    display: block;
-                    margin: auto;
+                     max-width: none;
+                      width: 300%; /* Set the desired width, for example, 300% of the parent container */
+                     height: auto;
+                     display: block;
+                     position: relative;
+                     left: 50%;
+                     transform: translateX(-50%);
                 }
                 
             </style>
@@ -64,13 +70,17 @@
                 $result = $conn->query("SELECT id, name, image FROM loans WHERE category = '$selectedCategory'");
 
                 echo "<div class='container mt-4'>";
-                echo "<h2>LGU Salary Loan</h2>";
 
                 echo "<div class='card-deck'>";
-
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='card'>";
-                    echo "<img src='/CoopManual/admin/uploads/{$row['image']}' class='card-img-top img-fluid mx-auto' alt='Image'>";
+
+                    // Display the name as the heading
+                    if (!empty($row['name'])) {
+                        echo "<h2>{$row['name']}</h2>";
+                    }
+
+                    echo "<img src='/CoopManual/admin/uploads/{$row['image']}' class='card-img-top mx-auto img-fluid' alt='Image'>";
                     echo "</div>";
                 }
 
